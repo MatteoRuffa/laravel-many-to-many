@@ -59,28 +59,38 @@ deleteSubmitButtons.forEach((button) => {
     });
 });
 
-
 document.addEventListener('DOMContentLoaded', function () {
     const modalInfo = new bootstrap.Modal(document.getElementById('staticBackdropInfo'));
 
     document.querySelectorAll('.open-modal-info').forEach(function(button) {
         button.addEventListener('click', function(event) {
-            const title = this.getAttribute('data-title');
-            const description = this.getAttribute('data-description');
-            const created = this.getAttribute('data-created');
-            const categoryName = this.getAttribute('data-categoryName'); 
-            const categories = this.getAttribute('data-categories');
+            const elementName = this.dataset.elementName;
+            const data = {
+                id: this.dataset.id,
+                title: this.dataset.title,
+                description: this.dataset.description,
+                created: this.dataset.created,
+                color: this.dataset.color,
+                icon: this.dataset.icon,
+                categories: this.dataset.categories
+            };
+            // console.log(data); 
 
-            document.getElementById('modalTitleInfo').innerHTML = `<strong>Title:</strong> ${title}`;
-            document.getElementById('modalDescriptionInfo').innerHTML = `<strong>Description:</strong> ${description || categories}`;
-            document.getElementById('modalCreatedInfo').innerHTML = `<strong>Created at:</strong> ${created}`;
-            document.getElementById('modalCategoriesInfo').innerHTML = `<strong>Category:</strong> ${categories}`;
+            for (const [key, value] of Object.entries(data)) {
+                const modalField = document.getElementById(`modal${key.charAt(0).toUpperCase() + key.slice(1)}Info`);
+                // console.log(modalField); 
+                if (modalField && value) {
+                    modalField.innerHTML = `<strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${value}`;
+                    modalField.style.display = 'block';
+                } else if (modalField) {
+                    modalField.style.display = 'none';
+                }
+            }
 
             modalInfo.show();
         });
     });
 });
-
 
 
 

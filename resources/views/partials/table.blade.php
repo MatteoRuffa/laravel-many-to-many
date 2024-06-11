@@ -40,12 +40,19 @@
                 <td class="{{ Route::currentRouteName() === 'admin.' . $elementName . 's.index' ? '' : 'd-none' }}">
                     <div class="d-flex justify-content-center align-items-center">
                         <!-- Administration Actions -->
-                        <a href="#" class="table-icon p-3 m-1 open-modal-info" data-bs-toggle="modal" data-bs-target="#staticBackdropInfo" data-title="{{ $element->title }}" data-description="{{ $element->description }}" data-created="{{ $element->created }}" data-categories="{{ $element->type->name ?? 'No Type' }}">
+                        <a href="#" class="table-icon p-3 m-1 open-modal-info" data-bs-toggle="modal" data-bs-target="#staticBackdropInfo"
+                        data-element-name="{{ $elementName }}" data-id="{{ $element->id }}"
+                        data-title="{{ $element->title ?? $element->name }}"
+                        data-description="{{ $element->description ?? '' }}"
+                        data-created="{{ $element->created_at->format('Y-m-d') ?? '' }}"
+                        data-categories="{{ $element->type->name ?? 'No Type' }}"
+                        data-color="{{ $element->color ?? '' }}" data-icon="{{ $element->icon ?? '' }}"
+                        data-type="{{ $element->type->name ?? '' }}">
                             <div class="icon-container">
                                 <i class="fas fa-info-circle"></i>
                             </div>
                         </a>
-
+                        
                         <a href="{{ route('admin.' . $elementName . 's.edit', $element) }}" class="table-icon m-1 pe-2">
                             <div class="icon-container">
                                 <i class="fas fa-pencil-alt"></i>
