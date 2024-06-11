@@ -6,6 +6,7 @@
             <th scope="col">{{ ucfirst($elementName) }} Title</th>
             @if($elementName !== 'type' && $elementName !== 'technologie')
                 <th scope="col" class="d-none d-xl-table-cell">Created at</th>
+                <th scope="col" class="d-none d-xl-table-cell">technologies</th>
             @elseif($elementName === 'technologie')
                 <th scope="col" class="d-none d-xl-table-cell">Color</th>
             @endif
@@ -24,6 +25,13 @@
                         @if($elementName === 'project')
                             {{ $element->created_at->format('Y-m-d') }}
                         @endif
+                    </td>
+                    <td class="d-none d-xl-table-cell">
+                    @if($elementName === 'project' && $element->technologies)
+                        @foreach($element->technologies as $technology)
+                            <i class="{{ $technology->icon }} fs-1" style="color: {{ $technology->color }};"></i>
+                        @endforeach
+                    @endif
                     </td>
                 @elseif($elementName === 'technologie')
                     <td class="d-none d-xl-table-cell">

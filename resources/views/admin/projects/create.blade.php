@@ -63,6 +63,20 @@
                     @enderror
                 </div>
 
+                <div class="form-group mb-3">
+                    <p>Select Technology:</p>
+                    @foreach ($technologies as $tech)
+                        <div>
+                            <input type="checkbox" name="technologies[]" value="{{ $tech->id }}" class="form-check-input"
+                                {{ in_array($tech->id, old('technologies', [])) ? 'checked' : '' }}>
+                            <label for="" class="form-check-label">{{ $tech->name }}</label>
+                        </div>
+                    @endforeach
+                    @error('technologies')
+                        <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
+                </div>
+
                 <div class="mb-3 @error('image_url') @enderror d-flex gap-5 align-items-center">
                     <div class="w-25 text-center">
                         <img id="uploadPreview" class="w-100" width="100"
