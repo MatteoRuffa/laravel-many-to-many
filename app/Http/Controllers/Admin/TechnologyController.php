@@ -48,7 +48,7 @@ class TechnologyController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Technology $tecnology)
+    public function show(Technology $technology)
     {
         //
     }
@@ -56,17 +56,26 @@ class TechnologyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Technology $tecnology)
+    public function edit(Technology $technology)
     {
-        //
+        $technologies = Technology::all();
+        return view('admin.technologies.edit', compact('technology', 'technologies'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Technology $tecnology)
+    public function update(UpdateTechnologyRequest $request, Technology $id)
     {
-        //
+        $technology_modified =  Technology::findOrFail($id);
+        $form_data = $request->validated();
+
+        if ($technology_modified->title != $form_data["name"]) {
+            $form_data["slug"] =  Technology::generateSlug($form_data["name"]);
+        }
+        $technology_modified->fill($form_data);
+        $technology_modified->update();
+        return redirect()->route("admin.technologies.index")->with('message', "technology (id:{$technology_modified->id}): {$technology_modified->name} modified successfully");
     }
 
     /**
