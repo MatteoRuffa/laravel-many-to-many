@@ -28,6 +28,10 @@
             <a class="nav-link {{ Route::currentRouteName() == 'admin.types.index' ? 'active' : '' }}" 
                href="{{ route('admin.types.index') }}">Types</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link {{ Route::currentRouteName() == 'admin.technologies.index' ? 'active' : '' }}" 
+               href="{{ route('admin.technologies.index') }}">Technologies</a>
+          </li>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               Carpet

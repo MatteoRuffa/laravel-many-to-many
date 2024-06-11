@@ -1,18 +1,23 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
-use App\Models\Tecnology;
+use App\Models\Technology;
+use App\Models\Project;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
-class TecnologyController extends Controller
+class TechnologyController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $technologies = Technology::with('projects')->paginate(10);
+        return view('admin.technologies.index', compact('technologies'));
     }
 
     /**
