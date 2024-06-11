@@ -42,7 +42,7 @@ class TypeController extends Controller
         $new_type = new Type();
         $new_type->fill($form_data);
         $new_type->save();
-        return redirect()->route("admin.types.index")->with('message', $new_type->name . ' has been successfully created');;
+        return redirect()->route("admin.types.index")->with('message', $new_type->name . ' has been successfully created');
         // $new_type->slug
     }
 
