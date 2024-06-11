@@ -39,7 +39,7 @@ deleteSubmitButtons.forEach((button) => {
 
         const dataTitle = button.getAttribute("data-item-title");
         const elementId = button.getAttribute("data-item-id");
-        const elementName = button.getAttribute("data-item-name"); // Assuming you have this attribute
+        const elementName = button.getAttribute("data-item-name");
 
         const modal = document.getElementById("deleteModal");
         const bootstrapModal = new bootstrap.Modal(modal);
@@ -64,7 +64,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     document.querySelectorAll('.open-modal-info').forEach(function(button) {
         button.addEventListener('click', function(event) {
-            const elementName = this.dataset.elementName;
             const data = {
                 id: this.dataset.id,
                 title: this.dataset.title,
@@ -74,14 +73,17 @@ document.addEventListener('DOMContentLoaded', function () {
                 icon: this.dataset.icon,
                 categories: this.dataset.categories
             };
-            // console.log(data); 
 
             for (const [key, value] of Object.entries(data)) {
                 const modalField = document.getElementById(`modal${key.charAt(0).toUpperCase() + key.slice(1)}Info`);
-                // console.log(modalField); 
                 if (modalField && value) {
-                    modalField.innerHTML = `<strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${value}`;
-                    modalField.style.display = 'block';
+                    if (key === 'icon') {
+                        modalField.className = `modalIconInfo ${value}`;
+                        modalField.style.display = 'block';
+                    } else {
+                        modalField.innerHTML = `<strong>${key.charAt(0).toUpperCase() + key.slice(1)}:</strong> ${value}`;
+                        modalField.style.display = 'block';
+                    }
                 } else if (modalField) {
                     modalField.style.display = 'none';
                 }
@@ -91,6 +93,7 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 });
+
 
 
 
