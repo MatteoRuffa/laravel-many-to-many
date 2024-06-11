@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\StoreTechnologyRequest;
+use App\Http\Requests\UpdateTechnologyRequest;
 
 class TechnologyController extends Controller
 {
@@ -25,21 +27,28 @@ class TechnologyController extends Controller
      */
     public function create()
     {
-        //
+        $technologies = Technology::all();
+        return view('admin.technologies.create', compact('technologies'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreTechnologyRequest $request)
     {
-        //
+        $form_data = $request->validated();
+        $form_data["slug"] =  Technology::generateSlug($form_data["name"]);
+        
+        $new_type = new Technology();
+        $new_type->fill($form_data);
+        $new_type->save();
+        return redirect()->route("admin.technologies.index");
     }
-
+    // ->with('message', $technologies->name . ' has been successfully created')
     /**
      * Display the specified resource.
      */
-    public function show(Tecnology $tecnology)
+    public function show(Technology $tecnology)
     {
         //
     }
@@ -47,7 +56,7 @@ class TechnologyController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Tecnology $tecnology)
+    public function edit(Technology $tecnology)
     {
         //
     }
