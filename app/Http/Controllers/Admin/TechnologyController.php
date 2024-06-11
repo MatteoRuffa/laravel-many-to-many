@@ -64,7 +64,7 @@ class TechnologyController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Tecnology $tecnology)
+    public function update(Request $request, Technology $tecnology)
     {
         //
     }
@@ -72,8 +72,9 @@ class TechnologyController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Tecnology $tecnology)
+    public function destroy(Technology $technology)
     {
-        //
+        $technology->delete();
+        return redirect()->route('admin.technologies.index')->with('message', $technology->name . ' has been successfully deleted');
     }
 }
